@@ -60,10 +60,3 @@ RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     python3 -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     python3 -O -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python34/lib/* /usr/local/lib/python3.4/dist-packages/
-
-
-WORKDIR /root/notebooks/
-
-EXPOSE 8888
-
-CMD ipython3 notebook --no-browser --ip=0.0.0.0 --port=8888
