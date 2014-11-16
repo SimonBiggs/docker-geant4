@@ -75,7 +75,7 @@ RUN cd ~/DAWN; \
     
 # Build DAWN
 RUN cd ~/DAWN/dawn_3_90b; \
-    DAWN_PS_PREVIEWER="NONE"
+    DAWN_PS_PREVIEWER="NONE": \
     make clean; \
     make guiclean; \
     make; \
