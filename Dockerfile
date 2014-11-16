@@ -9,14 +9,15 @@ RUN apt-get -y install cmake build-essential qt4-dev-tools libxmu-dev \
     
 RUN apt-get -y install xfonts-75dpi xfonts-100dpi imagemagick wget
 
+
 # Download GEANT4
 RUN mkdir -p ~/GEANT4/source; \
     cd ~/GEANT4/source; \
-    wget http://geant4.web.cern.ch/geant4/support/source/geant4.9.6.p03.tar.gz; \
+    wget http://geant4.web.cern.ch/geant4/support/source/geant4.9.6.p03.tar.gz
 
 # Extract source and data files
 RUN cd ~/GEANT4/source; \
-    tar -xzf geant4.9.6.p03.tar.gz; \
+    tar -xzf geant4.9.6.p03.tar.gz
 
 # Install GEANT4
 RUN mkdir -p ~/GEANT4/build; \
@@ -28,6 +29,7 @@ RUN mkdir -p ~/GEANT4/build; \
     make install; \
     echo ' . geant4.sh' >> ~/.bashrc
     
+  
 # Install GEANT4 Python Environment
 RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     sed -e 's/lib64/lib/g' configure > configure_edit_lib64; \
@@ -60,3 +62,21 @@ RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     python3 -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     python3 -O -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python34/lib/* /usr/local/lib/python3.4/dist-packages/
+    
+    
+# Download DAWN
+RUN mkdir ~/DAWN; \
+    cd ~/DAWN; \
+    wget http://geant4.kek.jp/~tanaka/src/dawn_3_90b.tgz
+
+# Extract DAWN
+RUN cd ~/DAWN; \
+    tar -xzf dawn_3_90b.tgz
+    
+# Build DAWN
+RUN cd ~/DAWN/dawn_3_90b; \
+    DAWN_PS_PREVIEWER="NONE"
+    make clean; \
+    make guiclean; \
+    make; \
+    make install
