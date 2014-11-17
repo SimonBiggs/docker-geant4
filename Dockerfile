@@ -30,11 +30,22 @@ RUN mkdir -p ~/GEANT4/build; \
     echo ' . geant4.sh' >> ~/.bashrc
     
   
-# Install GEANT4 Python Environment
+# Install GEANT4 Python Environments
 RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     sed -e 's/lib64/lib/g' configure > configure_edit_lib64; \
     sed -e 's/python3.3/python3.4 python3.3/g' configure_edit_lib64 > configure_edit_lib64_python34; \
     chmod +x configure_edit_lib64_python34; \
+    mkdir -p ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27; \
+    ./configure_edit_lib64_python34 linux64 --enable-openglxm \
+    --enable-raytracerx --enable-openglx --with-g4install-dir=/usr/local \
+    --with-boost-libdir=/usr/lib/x86_64-linux-gnu \
+    --with-boost-python-lib=boost_python-py27 \
+    --prefix=~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27; \
+    make -j`grep -c processor /proc/cpuinfo`; \
+    make install; \
+    cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27/lib/* /usr/local/lib/python2.7/dist-packages/
+    
+RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     mkdir -p ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python34; \
     ./configure_edit_lib64_python34 linux64 --with-python3 --enable-openglxm \
     --enable-raytracerx --enable-openglx --with-g4install-dir=/usr/local \
@@ -62,8 +73,8 @@ RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     python3 -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     python3 -O -c 'import py_compile; py_compile.compile( \"__init__.py\" )'; \
     cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python34/lib/* /usr/local/lib/python3.4/dist-packages/
-    
-    
+
+
 # Download DAWN
 RUN mkdir ~/DAWN; \
     cd ~/DAWN; \
