@@ -35,15 +35,18 @@ RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     sed -e 's/lib64/lib/g' configure > configure_edit_lib64; \
     sed -e 's/python3.3/python3.4 python3.3/g' configure_edit_lib64 > configure_edit_lib64_python34; \
     chmod +x configure_edit_lib64_python34; \
-    mkdir -p ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27; \
+    cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py ~/GEANT4/source/geant4.9.6.p03/environments/g4py27
+    
+RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py27; \
+    mkdir -p ~/GEANT4/source/geant4.9.6.p03/environments/g4py27/python27; \
     ./configure_edit_lib64_python34 linux64 --enable-openglxm \
     --enable-raytracerx --enable-openglx --with-g4install-dir=/usr/local \
     --with-boost-libdir=/usr/lib/x86_64-linux-gnu \
     --with-boost-python-lib=boost_python-py27 \
-    --prefix=~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27; \
+    --prefix=~/GEANT4/source/geant4.9.6.p03/environments/g4py27/python27; \
     make -j`grep -c processor /proc/cpuinfo`; \
     make install; \
-    cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python27/lib/* /usr/local/lib/python2.7/dist-packages/
+    cp -r ~/GEANT4/source/geant4.9.6.p03/environments/g4py27/python27/lib/* /usr/local/lib/python2.7/dist-packages/
     
 RUN cd ~/GEANT4/source/geant4.9.6.p03/environments/g4py; \
     mkdir -p ~/GEANT4/source/geant4.9.6.p03/environments/g4py/python34; \
@@ -94,8 +97,8 @@ RUN cd ~/DAWN/dawn_3_90b; \
 
 
 # Reduce image size
-RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
-    apt-get autoremove; apt-get clean
+#RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
+#    apt-get autoremove; apt-get clean
 
 
 # Boot container with GEANT4 started
