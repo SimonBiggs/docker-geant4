@@ -94,6 +94,8 @@ RUN cd ~/DAWN/dawn_3_90b; \
 
 
 # Boot container with GEANT4 started
+WORKDIR /root/notebooks/
+
 EXPOSE 8888
 
 RUN echo '#/bin/bash' > start_geant4_notebook.sh; \
