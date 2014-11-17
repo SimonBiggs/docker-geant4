@@ -93,6 +93,11 @@ RUN cd ~/DAWN/dawn_3_90b; \
     make install
 
 
+# Reduce image size
+RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
+    apt-get autoremove; apt-get clean
+
+
 # Boot container with GEANT4 started
 WORKDIR /root/notebooks/
 
