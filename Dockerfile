@@ -97,8 +97,8 @@ RUN cd ~/DAWN/dawn_3_90b; \
 
 
 # Reduce image size
-#RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
-#    apt-get autoremove; apt-get clean
+RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
+    apt-get autoremove; apt-get clean
 
 
 # Boot container with GEANT4 started
