@@ -13,7 +13,7 @@ RUN apt-get -y install xfonts-75dpi xfonts-100dpi imagemagick wget
 # Download GEANT4
 RUN mkdir -p ~/GEANT4/source; \
     cd ~/GEANT4/source; \
-    wget http://geant4.web.cern.ch/geant4/support/source/geant4.9.6.p03.tar.gz
+    wget http://cern.ch/geant4-data/releases/geant4.9.6.p03.tar.gz
 
 # Extract source and data files
 RUN cd ~/GEANT4/source; \
